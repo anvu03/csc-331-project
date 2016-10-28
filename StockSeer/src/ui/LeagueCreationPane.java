@@ -5,13 +5,18 @@ import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import controller.LeagueCreationController;
+import model.LeagueModel.Difficulty;
+
 import javax.swing.JComboBox;
 import javax.swing.BoxLayout;
 import java.awt.Component;
+
+import javax.swing.AbstractButton;
 import javax.swing.Box;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
@@ -20,13 +25,16 @@ public class LeagueCreationPane extends JPanel {
 	private JTextField txtLeagueName;
 	private JButton btnCancel;
 	private JButton btnCreate;
-	private JComboBox<Integer> comboBoxNumPlayers;
+	private JComboBox<Integer> comboBoxCapacity;
 	private DatePickerPane startDatePicker;
 	private DatePickerPane endDatePicker;
 
 	public final static String CANCEL = "Cancel";
 	public final static String CREATE = "Create";
 	private final ButtonGroup btnGrpDifficulty = new ButtonGroup();
+	private JRadioButton rdbtnEasy;
+	private JRadioButton rdbtnMedium;
+	private JRadioButton rdbtnHard;
 
 	/**
 	 * Create the panel.
@@ -80,14 +88,14 @@ public class LeagueCreationPane extends JPanel {
 		gbc_lblNumberOfPlayers.gridy = 1;
 		panelForm.add(lblNumberOfPlayers, gbc_lblNumberOfPlayers);
 
-		comboBoxNumPlayers = new JComboBox<Integer>();
-		GridBagConstraints gbc_comboBoxNumPlayers = new GridBagConstraints();
-		gbc_comboBoxNumPlayers.anchor = GridBagConstraints.NORTH;
-		gbc_comboBoxNumPlayers.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBoxNumPlayers.insets = new Insets(0, 0, 5, 0);
-		gbc_comboBoxNumPlayers.gridx = 1;
-		gbc_comboBoxNumPlayers.gridy = 1;
-		panelForm.add(comboBoxNumPlayers, gbc_comboBoxNumPlayers);
+		comboBoxCapacity = new JComboBox<Integer>();
+		GridBagConstraints gbc_comboBoxCapacity = new GridBagConstraints();
+		gbc_comboBoxCapacity.anchor = GridBagConstraints.NORTH;
+		gbc_comboBoxCapacity.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxCapacity.insets = new Insets(0, 0, 5, 0);
+		gbc_comboBoxCapacity.gridx = 1;
+		gbc_comboBoxCapacity.gridy = 1;
+		panelForm.add(comboBoxCapacity, gbc_comboBoxCapacity);
 
 		JLabel lblStartDate = new JLabel("Start Date");
 		GridBagConstraints gbc_lblStartDate = new GridBagConstraints();
@@ -129,20 +137,20 @@ public class LeagueCreationPane extends JPanel {
 		gbc_panel_1.gridy = 4;
 		panelForm.add(panel_1, gbc_panel_1);
 
-		JRadioButton rdbtnEasy = new JRadioButton("Easy");
+		rdbtnEasy = new JRadioButton("Easy");
 		rdbtnEasy.setSelected(true);
 		btnGrpDifficulty.add(rdbtnEasy);
 		panel_1.add(rdbtnEasy);
 
-		JRadioButton rdbtnMedium = new JRadioButton("Medium");
+		rdbtnMedium = new JRadioButton("Medium");
 		btnGrpDifficulty.add(rdbtnMedium);
 		panel_1.add(rdbtnMedium);
 
-		JRadioButton rdbtnHard = new JRadioButton("Hard");
+		rdbtnHard = new JRadioButton("Hard");
 		btnGrpDifficulty.add(rdbtnHard);
 		panel_1.add(rdbtnHard);
 		for (int i = 2; i <= 10; i++) {
-			comboBoxNumPlayers.addItem(i);
+			comboBoxCapacity.addItem(i);
 		}
 
 		JPanel panel = new JPanel();
@@ -175,6 +183,7 @@ public class LeagueCreationPane extends JPanel {
 	 *         GregorianCalendar object if date is valid
 	 */
 	public GregorianCalendar getStartDate() {
+		System.out.println("***" + startDatePicker.displayDate());
 		return startDatePicker.getDate();
 	}
 
@@ -184,6 +193,7 @@ public class LeagueCreationPane extends JPanel {
 	 *         GregorianCalendar object if date is valid
 	 */
 	public GregorianCalendar getEndDate() {
+		System.out.println("***" + endDatePicker.displayDate());
 		return endDatePicker.getDate();
 	}
 
@@ -195,6 +205,36 @@ public class LeagueCreationPane extends JPanel {
 	 */
 	public String getLeagueName() {
 		return txtLeagueName.getText().trim();
+	}
+
+	public int getCapacity() {
+		return (int) comboBoxCapacity.getSelectedItem();
+	}
+
+	/**
+	 * get difficulty level that the user choose
+	 * 
+	 * @return
+	 */
+	public Difficulty getDifficulty() {
+		if (rdbtnEasy.isSelected())
+			return Difficulty.EASY;
+		if (rdbtnMedium.isSelected())
+			return Difficulty.MEDIUM;
+		if (rdbtnHard.isSelected())
+			return Difficulty.HARD;
+		return null;
+	}
+
+	/**
+	 * set all fields to initial values
+	 */
+	public void reset() {
+		txtLeagueName.setText("");
+		comboBoxCapacity.setSelectedIndex(0);
+		rdbtnEasy.setSelected(true);
+		startDatePicker.reset();
+		endDatePicker.reset();
 	}
 
 }

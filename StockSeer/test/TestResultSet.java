@@ -1,6 +1,4 @@
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import persistence.DBConnection;
 
@@ -23,7 +21,6 @@ public class TestResultSet {
 				preparedStatement.close(); // this will close rs as well
 				System.out.println("statement status=" + (preparedStatement.isClosed() == true ? "closed" : "open"));
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
