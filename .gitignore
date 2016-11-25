@@ -1,5 +1,4 @@
 YahooFinanceAPI-3.5.0/
-<<<<<<< HEAD
 RemoteSystemsTempFiles/
 .metadata/
 StockSeer/bin/
@@ -7,18 +6,6 @@ StockSeer/bin/
 *.DS_Store
 *.class
 *.project
-<<<<<<< HEAD
-.metadata/
-=======
-RemoteSystemsTempFiles/
-.metadata/
-StockSeer/bin/
-.recommenders/
-*.DS_Store
-*.class
-*.project
->>>>>>> development
-=======
 
 # from github
 .metadata
@@ -71,9 +58,6 @@ local.properties
 
 # Code Recommenders
 .recommenders/
-<<<<<<< HEAD
->>>>>>> origin/development
-=======
 
 
 #####################################################
@@ -121,4 +105,3 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
->>>>>>> development

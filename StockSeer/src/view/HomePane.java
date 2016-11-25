@@ -12,6 +12,8 @@ import javax.swing.table.DefaultTableModel;
 import controller.HomePaneController;
 import controller.LeagueTableController;
 
+import java.awt.Dimension;
+
 public class HomePane extends JPanel {
 
 	/**
@@ -27,7 +29,7 @@ public class HomePane extends JPanel {
 	public static final String RDBTN_ALL = "All";
 	public static final String RDBTN_MY_LEAGUES = "My leagues";
 	public static final String RDBTN_JOINED_LEAGUES = "Joined leagues";
-	private static final String ALL_PLAYERS = "All Players";
+	public static final String ALL_PLAYERS = "All Players";
 	private JButton btnCreate;
 	private JButton btnLogout;
 	private JButton btnJoin;
@@ -43,16 +45,21 @@ public class HomePane extends JPanel {
 	private JSplitPane splitPane;
 	private JScrollPane playerScrollPane;
 	private JTable playerTable;
+	private Component horizontalGlue_2;
+	private Component horizontalStrut;
 
 	/**
 	 * Create the panel.
 	 */
 	HomePane() {
+		setMinimumSize(new Dimension(600, 500));
 
 		setLayout(new BorderLayout(0, 0));
 
 		splitPane = new JSplitPane();
-		add(splitPane, BorderLayout.WEST);
+		splitPane.setAlignmentY(Component.CENTER_ALIGNMENT);
+		splitPane.setAlignmentX(Component.CENTER_ALIGNMENT);
+		add(splitPane, BorderLayout.CENTER);
 
 		JScrollPane leagueScrollPane = new JScrollPane();
 		splitPane.setLeftComponent(leagueScrollPane);
@@ -67,6 +74,9 @@ public class HomePane extends JPanel {
 		leagueTable.getTableHeader().setReorderingAllowed(false);
 
 		playerScrollPane = new JScrollPane();
+		playerScrollPane.setMinimumSize(new Dimension(80, 23));
+		playerScrollPane.setAlignmentY(Component.TOP_ALIGNMENT);
+		playerScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
 		splitPane.setRightComponent(playerScrollPane);
 
 		// -------------Players table
@@ -106,16 +116,15 @@ public class HomePane extends JPanel {
 		btnLogout = new JButton(LOGOUT);
 		panelTopControl.add(btnLogout);
 
-		Component horizontalGlue_2 = Box.createHorizontalGlue();
-		panelTopControl.add(horizontalGlue_2);
-
-		btnAllPlayers = new JButton(ALL_PLAYERS);
-		panelTopControl.add(btnAllPlayers);
-
 		JPanel panel = new JPanel();
 		panelTopControl.add(panel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+
+		horizontalStrut = Box.createHorizontalStrut(20);
+		panel.add(horizontalStrut);
 
 		rdbtnAll = new JRadioButton(RDBTN_ALL);
+		rdbtnAll.setSelected(true);
 		buttonGroup.add(rdbtnAll);
 		panel.add(rdbtnAll);
 
@@ -126,6 +135,15 @@ public class HomePane extends JPanel {
 		rdbtnJoinedLeagues = new JRadioButton(RDBTN_JOINED_LEAGUES);
 		buttonGroup.add(rdbtnJoinedLeagues);
 		panel.add(rdbtnJoinedLeagues);
+
+		horizontalGlue_2 = Box.createHorizontalGlue();
+		panel.add(horizontalGlue_2);
+
+		btnAllPlayers = new JButton(ALL_PLAYERS);
+		panel.add(btnAllPlayers);
+
+		splitPane.setResizeWeight(0.85);
+
 	}
 
 	public void setLeagueTableModel(DefaultTableModel tableModel) {

@@ -4,11 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-<<<<<<< HEAD:StockSeer/src/ui/RegistrationPane.java
-import java.awt.GridBagLayout;
-=======
 
->>>>>>> development:StockSeer/src/view/RegistrationPane.java
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
